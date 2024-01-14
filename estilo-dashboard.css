@@ -144,3 +144,8 @@ li {
     justify-content: center;
 }
 
+@media only screen and (max-width: 600px) {
+    #transactionForm {
+        transform: translateX(-40vw);
+    }
+}
