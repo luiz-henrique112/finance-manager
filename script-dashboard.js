@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
                 const { valor, moeda, data, name } = doc.data();
         
-                this.liValor.textContent = `Valor: ${valor} ${moeda}`;
+                this.liValor.textContent = "Valor:" + valor +" "+ moeda;
         
                 // Formatando a data no estilo dia/mês/ano
                 const dataFormatada = new Date(data);
