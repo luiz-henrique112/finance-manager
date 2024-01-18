@@ -102,28 +102,56 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async mostrarDados() {
         try {
-            const doc = await this.collectionTransacao.get();
+            class Tags {
+        constructor(uid, transacao) {
+            this.ul = document.createElement("ul");
+            this.div = document.createElement("div");
+            this.divLi = document.createElement('div');
+            this.h2 = document.createElement("h2");
+            this.liValor = document.createElement("li");
+            this.liData = document.createElement("li");
 
-            this.ul.classList.add("transacao");
-            this.ul.id = transacao;
-            this.ul.appendChild(this.div);
+            this.collectionTransacao = db
+                .collection("users")
+                .doc("usersID")
+                .collection(uid)
+                .doc(transacao);
+            this.mostrarDados();
+        }
 
-            const liValor = document.createElement("li");
-            liValor.textContent = doc.data().valor + doc.data().moeda;
+        getUl() {
+            return this.ul;
+        }
 
-            const liData = document.createElement("li");
-            liData.textContent = doc.data().data;
-
-            this.li.push(liValor, liData);
-
-            this.ul.appendChild(liValor);
-            this.ul.appendChild(liData);
-
-            this.h2.textContent = doc.data().name;
-            this.div.appendChild(this.h2);
-            this.div.classList.add("tag-h2");
-            
-            lista.appendChild(this.ul);
+        async mostrarDados() {
+            try {
+                const doc = await this.collectionTransacao.get();
+        
+                this.ul.classList.add("transacao");
+                this.ul.id = transacao;
+                this.ul.appendChild(this.div);
+                this.ul.appendChild(this.divLi);
+        
+                const { valor, moeda, data, name } = doc.data();
+        
+                this.liValor.textContent = `Valor: ${valor} ${moeda}`;
+        
+                // Formatando a data no estilo dia/mês/ano
+                const dataFormatada = new Date(data);
+                const dia = dataFormatada.getDate().toString().padStart(2, '0');
+                const mes = (dataFormatada.getMonth() + 1).toString().padStart(2, '0');
+                const ano = dataFormatada.getFullYear();
+        
+                this.liData.textContent = "Data:" + dia + "/" +  mes + "/" + ano;
+        
+                this.divLi.append(this.liValor, this.liData);
+                this.divLi.classList.add('tag-li');
+        
+                this.h2.textContent = name;
+                this.div.append(this.h2);
+                this.div.classList.add("tag-h2");
+        
+                lista.appendChild(this.ul);
         } catch (error) {
             window.confirm("Erro, tente novamente");
             console.error("erro:", error);
