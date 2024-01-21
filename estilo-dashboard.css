@@ -3,11 +3,11 @@ body {
     margin: 0;
     padding: 0;
     background-color: #d3d3d3;
-    align-items:center;
-    font-size: 0.65vw;
+    align-items: center;
+    font-size: 0.5vw; /* Ajustado o tamanho da fonte para melhor leitura em dispositivos menores */
 }
 
- header {
+header {
     background-color: #333;
     color: #fff;
     padding: 20px;
@@ -15,13 +15,13 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    height:fit-content;
+    height: fit-content;
 }
 
 main {
     padding: 20px;
     display: flex;
-
+    flex-wrap: wrap; /* Permite que os itens se ajustem à largura da tela */
 }
 
 /* Estilos para formulário e lista de transações */
@@ -36,23 +36,17 @@ main {
 
 #transactionForm {
     height: fit-content;
-    width: 15vw; /* Ajuste conforme necessário */
-    justify-content: space-around;
+    width: 100%; /* Ocupa 100% da largura na tela pequena */
     transition: transform 0.5s ease;
-    transform: translateX(-20vw);
-
+    transform: translateX(-50vh); /* Ajustado para aparecer na tela pequena */
 }
 
-
 #transactionList {
-
     align-self: center;
-    width: 61%;
-    height: 30%;
+    width: 70%; /* Ocupa 100% da largura na tela pequena */
     margin-left: auto;
     margin-right: auto;
 }
-
 
 .addTransacao {
     display: flex;
@@ -64,49 +58,44 @@ main {
     font-weight: bold;
 }
 
-.btn-plus{
-    position: fixed; /* Define uma posição relativa para o contêiner */
+.btn-plus {
+    position: fixed;
     margin-bottom: 30px;
-
-
 }
 
 #transactionForm.mostrar {
-    transform: translateX(0); /* Move o formulário para a posição visível */
+    transform: translateX(0);
 }
 
-.plus{
-    height:7vh;
-    width:7vh;
+.plus {
+    height: 7vh;
+    width: 7vh;
     border-radius: 15px;
-    border:none;
-    display:flex;
+    border: none;
+    display: flex;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-    margin:10px;
+    margin: 10px;
     justify-content: center;
     align-items: center;
 }
 
-img{
-    height:4.5vh;
-    width:4.5vh
+img {
+    height: 4.5vh;
+    width: 4.5vh;
 }
 
 .addTransacao input[type="text"],
 .addTransacao input[type="number"],
-.addTransacao button {
+.addTransacao button,
+input {
     padding: 8px;
     border-radius: 5px;
-
-}
-
-input {
     outline: none;
     border: none;
-    border-radius: 5px;
     background: #f0f3f6;
     color: #333;
-
+    width: 100%; /* Ocupa 100% da largura na tela pequena */
+    box-sizing: border-box; /* Evita que o padding afete a largura total */
 }
 
 .addTransacao button {
@@ -117,13 +106,9 @@ input {
     margin-top: 5px;
 }
 
-.barra-lateral{
-    background-color: #fff;
-}
-
 .addTransacao button:hover {
     background-color: #555;
-    justify-content:center;
+    justify-content: center;
 }
 
 #transactionList ul {
@@ -135,56 +120,130 @@ input {
 li {
     padding: 15px;
     background-color: #ffffff;
-    width:35vw;
+    width: 100%; /* Ocupa 100% da largura na tela pequena */
     border-radius: 8px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-    display:flex
+    margin: 10px;
+    display: flex;
+    box-sizing: border-box; /* Evita que a margem afete a largura total */
 }
 
-.transacao{
+.transacao {
     background-color: #cccccc;
-    padding:17px;
+    padding: 17px;
     border-radius: 4px;
-
 }
-.tag-h2{
+
+.tag-h2 {
     display: flex;
     justify-content: center;
 }
 
-.tag-li{
-    margin-right:auto;
-    margin-left:auto
+.tag-li {
+    display:flex;
+    justify-content: center;
 }
 
-@media (max-width:768px) {
-
-    body{
-        font-size: 1.99vw;
+@media (max-width: 768px) {
+    body {
+        font-size: 1.7vw; /* Ajuste do tamanho da fonte para telas pequenas */
     }
 
-    main{
-        padding-left:6px
+    main {
+        padding-left: 6px;
+        padding-right: 6px; /* Adicionado padding-right para evitar que o conteúdo toque nas bordas */
     }
 
-    li{
-        width:35vw
+    li {
+        width: 100%; /* Ocupa 100% da largura na tela pequena */
     }
 
-    #transactionForm {
-        transform: translateX(-40vw);
+
+    .plus {
+        height: 5vh;
+        width:5vh;
+        transform: translateX(-7px);
     }
 
-    .plus{
-        height:6vh;
-        width:6vh;
-        transform:translateX(-7px)
+
+
+    img {
+        height: 3.6vh;
+        width: 3.6vh;
+    } 
+
+    #transactionForm{
+        width:31%
     }
 
-    img{
-            /*opaaaaaaa*/
-            height:3.6vh;
-            width:3.6vh
-        }
+ #transactionList{
+        width:65%
     }
+    
+    input{
+        scale: 0.5em;
+    }
+}
+
+@media (min-width:769px) and (max-width:979px){
+    body {
+        font-size: 1.5vw; /* Ajuste do tamanho da fonte para telas pequenas */
+    }
+
+    main {
+        padding-left: 6px;
+        padding-right: 6px; /* Adicionado padding-right para evitar que o conteúdo toque nas bordas */
+    }
+
+    li {
+        width: 100%; /* Ocupa 100% da largura na tela pequena */
+    }
+
+   
+
+    .plus {
+        height: 6vh;
+        width: 6vh;
+        transform: translateX(-7px);
+    }
+
+    
+   
+
+    img {
+        height: 3vw;
+        width: 3vw;
+    }
+}
+
+@media (min-width: 980px) and (max-width:1500px){
+    body {
+        font-size: 1.1vw; /* Ajuste do tamanho da fonte para telas pequenas */
+    }
+
+    main {
+        padding-left: 6px;
+        padding-right: 6px; /* Adicionado padding-right para evitar que o conteúdo toque nas bordas */
+    }
+
+    li {
+        width: 100%; /* Ocupa 100% da largura na tela pequena */
+    }
+
+   
+
+    .plus {
+        height: 6vh;
+        width: 6vh;
+        transform: translateX(-7px);
+    }
+
+    #transactionForm{
+        width:41%
+    }
+
+    img {
+        height: 3vw;
+        width: 3vw;
+    }
+}
