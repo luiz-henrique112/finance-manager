@@ -1,10 +1,10 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #d3d3d3;
     align-items: center;
-    font-size: 0.5vw; /* Ajustado o tamanho da fonte para melhor leitura em dispositivos menores */
+    font-size: 0.6vw; /* Ajustado o tamanho da fonte para melhor leitura em dispositivos menores */
 }
 
 header {
@@ -132,6 +132,7 @@ li {
     background-color: #cccccc;
     padding: 17px;
     border-radius: 4px;
+    margin:10px
 }
 
 .tag-h2 {
