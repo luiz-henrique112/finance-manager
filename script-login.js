@@ -73,10 +73,13 @@ document.addEventListener("DOMContentLoaded", function() {
             const user = userCredential.user;
             const uid = user.uid;
             
-            let number = 1
-            localStorage.setItem("number", number)
+            let number = 1;
 
-            db.collection("users").doc("usersID").collection(uid).add({})
+    
+            // Criar o documento "number-transacao" com o ID específico
+            db.collection("users").doc("usersID").collection(uid).doc("number-transacao").set({
+                num : number
+            })
             .then(() => {
                 console.log("Nova conta criada e subcoleção adicionada");
                 localStorage.setItem('uid', uid);
@@ -91,6 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error("Erro ao criar conta:", error);
         });
     }
+    
 
     function redirecionarParaDashboard() {
         setTimeout(() => {
