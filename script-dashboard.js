@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let task = "transacao";
 
+  let inputs = document.getElementsByTagName('input')
+
   async function obterNumero() {
     try {
       const numeroDoc = await db.collection("users").doc("usersID").collection(uid).doc("number-transacao").get();
@@ -38,29 +40,32 @@ document.addEventListener("DOMContentLoaded", function () {
   // Aguardar a obtenção do número antes de usar
   obterNumero().then((number) => {
     let transacao = task + number;
-
     let lista = document.getElementById('transactions');
+    let lista2 = document.getElementById('transactionList')
     const btnPlus = document.getElementById("btnPlus");
     const transactionForm = document.getElementById("transactionForm");
     const salvarBtn = document.getElementById("salvarBtn");
 
     btnPlus.addEventListener("click", () => {
       transactionForm.classList.toggle("mostrar");
+      lista2.classList.toggle("diminuir")
     });
 
     salvarBtn.addEventListener("click", (e) => {
       e.preventDefault();
       obterNumero().then((newNumber) => {
         transacao = task + newNumber;
-
+    
         coletarDados(uid, transacao);
-
+    
         const tags = new Tags(uid, transacao);
-        lista.appendChild(tags.getUl()); // Adicione o elemento 'ul' à lista
-
-        btnPlus.classList.toggle('mostrar');
+        lista.appendChild(tags.getUl());
+    
       });
     });
+
+
+    
 
     obterTodasTransacoes().then((transacoes) => {
       transacoes.forEach((transacao) => {
