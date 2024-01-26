@@ -4,7 +4,7 @@ body {
     padding: 0;
     background-color: #d3d3d3;
     align-items: center;
-    font-size: 0.5vw; /* Ajustado o tamanho da fonte para melhor leitura em dispositivos menores */
+    font-size: 0.7vw; /* Ajustado o tamanho da fonte para melhor leitura em dispositivos menores */
 }
 
 header {
@@ -38,7 +38,7 @@ main {
     height: fit-content;
     width: 100%; /* Ocupa 100% da largura na tela pequena */
     transition: transform 0.5s ease;
-    transform: translateX(-50vh); /* Ajustado para aparecer na tela pequena */
+    transform: translateX(-60vh); /* Ajustado para aparecer na tela pequena */
 }
 
 .aumentar {
@@ -77,7 +77,7 @@ main {
 
 #transactionForm.mostrar {
     transform: translateX(0);
-    transition: 0.2s ease;
+    transition: 0.5s ease;
 }
 
 .plus {
@@ -158,19 +158,19 @@ li {
     justify-content: center;
 }
 
-@media (max-width: 340px) {
+@media (max-width: 390px) {
     body {
         font-size: 1.7vw; /* Ajuste do tamanho da fonte para telas pequenas */
     }
 
     main {
-        padding-left: 6px;
-        padding-right: 6px; /* Adicionado padding-right para evitar que o conteúdo toque nas bordas */
+        padding-left: 12px;
+        padding-right: 12px; /* Adicionado padding-right para evitar que o conteúdo toque nas bordas */
     }
 
     li {
         width: 80%;
-         /* Ocupa 100% da largura na tela pequena */
+        padding:7px
     }
 
 
@@ -181,8 +181,8 @@ li {
     }
 
     .diminuir{
-        width: 47% !important;
-        transform: translateX(20vw);
+        width: 50% !important;
+        transform: translateX(15vw);
         transition: width 0.3s ease-in-out; 
         transition:  0.3s ease-in-out;/* Ajuste da duração e da função de transição */
         float: right;
@@ -197,8 +197,13 @@ li {
         width:25%
     }
 
+    .addTransacao button{
+        scale:0.8
+    }
+
+
     #transactionList{
-        width:65%
+        width:68%
     }
     
     input{
@@ -206,21 +211,28 @@ li {
     }
 }
 
-@media (min-width:341px) and (max-width:979px){
+@media (min-width:391px) and (max-width:655px){
     body {
-        font-size: 1.5vw; /* Ajuste do tamanho da fonte para telas pequenas */
+        font-size: 1.6vw; /* Ajuste do tamanho da fonte para telas pequenas */
     }
 
     main {
-        padding-left: 6px;
-        padding-right: 6px; /* Adicionado padding-right para evitar que o conteúdo toque nas bordas */
+        padding-left: 12px;
+        padding-right: 12px; /* Adicionado padding-right para evitar que o conteúdo toque nas bordas */
     }
 
     li {
-        width: 100%; /* Ocupa 100% da largura na tela pequena */
+        width: 100%;
+        padding:7px /* Ocupa 100% da largura na tela pequena */
     }
 
-   
+    #transactionList{
+        width:65vw
+    }
+
+    input{
+        scale: 0.95;
+    }
 
     .plus {
         height: 4vh;
@@ -229,11 +241,15 @@ li {
     }
 
     #transactionForm{
-        width:68%
+        width:20vw
+    }
+
+    .addTransacao button{
+        scale:0.8
     }
 
     .diminuir{
-        width: 70% !important;
+        width: 50% !important;
         transform: translateX(15vw);
         transition: width 0.3s ease-in-out; 
         transition:  0.3s ease-in-out;/* Ajuste da duração e da função de transição */
@@ -246,31 +262,100 @@ li {
     }
 }
 
-@media (min-width: 980px) and (max-width:1400px){
+@media (min-width:655px) and (max-width:980px){
     body {
-        font-size: 1vw;
-         /* Ajuste do tamanho da fonte para telas pequenas */
+        font-size: 1.3vw; /* Ajuste do tamanho da fonte para telas pequenas */
     }
 
     main {
-        padding-left: 6px;
-        padding-right: 6px; /* Adicionado padding-right para evitar que o conteúdo toque nas bordas */
+        padding-left: 12px;
+        padding-right: 12px; /* Adicionado padding-right para evitar que o conteúdo toque nas bordas */
     }
 
     li {
-        width: 100%; /* Ocupa 100% da largura na tela pequena */
+        width: 100%;
+        padding:7px /* Ocupa 100% da largura na tela pequena */
     }
 
-   
+    #transactionList{
+        width:67vw
+    }
+
+    input{
+        scale: 0.95;
+    }
 
     .plus {
-        height: 6vh;
-        width: 6vh;
+        height: 4.5vw;
+        width: 4.5vw;
         transform: translateX(-7px);
     }
 
     #transactionForm{
-        width:55%
+        width:23vw
+    }
+
+    .addTransacao button{
+        scale:0.8
+    }
+
+    .diminuir{
+        width: 60vw !important;
+        transform: translateX(15vw);
+        transition: width 0.3s ease-in-out; 
+        transition:  0.3s ease-in-out;/* Ajuste da duração e da função de transição */
+        float: right;
+    }
+
+    img {
+        height: 3vw;
+        width: 3vw;
+    }
+}
+
+@media (min-width: 980px) and (max-width:1400px){
+    body {
+        font-size: 1vw; /* Ajuste do tamanho da fonte para telas pequenas */
+    }
+
+    main {
+        padding-left: 12px;
+        padding-right: 12px; /* Adicionado padding-right para evitar que o conteúdo toque nas bordas */
+    }
+
+    li {
+        width: 100%;
+        padding:7px /* Ocupa 100% da largura na tela pequena */
+    }
+
+    #transactionList{
+        width:70vw
+    }
+
+    input{
+        scale: 0.95;
+    }
+
+    .plus {
+        height: 4.5vw;
+        width: 4.5vw;
+        transform: translateX(-7px);
+    }
+
+    #transactionForm{
+        width:25vw
+    }
+
+    .addTransacao button{
+        scale:0.8
+    }
+
+    .diminuir{
+        width: 58vw !important;
+        transform: translateX(18vw);
+        transition: width 0.3s ease-in-out; 
+        transition:  0.3s ease-in-out;/* Ajuste da duração e da função de transição */
+        float: right;
     }
 
     img {
