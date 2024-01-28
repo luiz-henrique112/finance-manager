@@ -77,7 +77,7 @@ main {
 
 #transactionForm.mostrar {
     transform: translateX(0);
-    transition: 0.5s ease;
+    transition: 0.4s ease;
 }
 
 .plus {
@@ -100,7 +100,8 @@ img {
 .addTransacao input[type="text"],
 .addTransacao input[type="number"],
 .addTransacao button,
-input {
+input,
+select {
     padding: 8px;
     border-radius: 5px;
     outline: none;
@@ -206,7 +207,7 @@ li {
         width:68%
     }
     
-    input{
+    input, select{
         scale: 0.5em;
     }
 }
@@ -230,7 +231,7 @@ li {
         width:65vw
     }
 
-    input{
+    input, select{
         scale: 0.95;
     }
 
@@ -281,7 +282,7 @@ li {
         width:67vw
     }
 
-    input{
+    input, select{
         scale: 0.95;
     }
 
@@ -332,7 +333,7 @@ li {
         width:70vw
     }
 
-    input{
+    input,select{
         scale: 0.95;
     }
 
