@@ -14,16 +14,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let task = "transacao";
 
-  let inputs = document.getElementsByTagName('input')
-
   async function obterNumero() {
     try {
       const numeroDoc = await db.collection("users").doc("usersID").collection(uid).doc("number-transacao").get();
-      const numero = numeroDoc.exists ? numeroDoc.data().num : 1;
-      return numero;
+      return numeroDoc.exists ? numeroDoc.data().num : 1;
     } catch (error) {
       console.error("Erro ao obter número:", error);
-      return 1; // ou o valor padrão desejado
+      return 1;
     }
   }
 
@@ -37,35 +34,28 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Aguardar a obtenção do número antes de usar
   obterNumero().then((number) => {
     let transacao = task + number;
     let lista = document.getElementById('transactions');
-    let lista2 = document.getElementById('transactionList')
+    let lista2 = document.getElementById('transactionList');
     const btnPlus = document.getElementById("btnPlus");
     const transactionForm = document.getElementById("transactionForm");
     const salvarBtn = document.getElementById("salvarBtn");
 
     btnPlus.addEventListener("click", () => {
       transactionForm.classList.toggle("mostrar");
-      lista2.classList.toggle("diminuir")
+      lista2.classList.toggle("diminuir");
     });
 
     salvarBtn.addEventListener("click", (e) => {
       e.preventDefault();
       obterNumero().then((newNumber) => {
         transacao = task + newNumber;
-    
         coletarDados(uid, transacao);
-    
-        const tags = new Tags(uid, transacao);
-        lista.appendChild(tags.getUl());
-    
+        const tag = new Tags(uid, transacao);
+        lista.appendChild(tag.getUl());
       });
     });
-
-
-    
 
     obterTodasTransacoes().then((transacoes) => {
       transacoes.forEach((transacao) => {
@@ -82,11 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (transactionForm.classList.contains("mostrar")) {
         if (uid && typeof uid === "string") {
-          const docRef = db
-            .collection("users")
-            .doc("usersID")
-            .collection(uid)
-            .doc(transacao);
+          const docRef = db.collection("users").doc("usersID").collection(uid).doc(transacao);
 
           docRef
             .set({
@@ -119,16 +105,15 @@ document.addEventListener("DOMContentLoaded", function () {
       constructor(uid, transacao) {
         this.ul = document.createElement("ul");
         this.div = document.createElement("div");
-        this.h2 = document.createElement("h2");
+        this.divBtn = document.createElement("div");
+        this.divH2 = document.createElement("div");
         this.divLi = document.createElement('div');
+        this.h2 = document.createElement("h2");
         this.liValor = document.createElement("li");
         this.liData = document.createElement("li");
-
-        this.collectionTransacao = db
-          .collection("users")
-          .doc("usersID")
-          .collection(uid)
-          .doc(transacao);
+        this.btnEditar = document.createElement("button");
+        this.btnExcluir = document.createElement("button");
+        this.collectionTransacao = db.collection("users").doc("usersID").collection(uid).doc(transacao);
         this.mostrarDados(transacao);
       }
 
@@ -139,10 +124,9 @@ document.addEventListener("DOMContentLoaded", function () {
       async mostrarDados(transacao) {
         try {
           const doc = await this.collectionTransacao.get();
-
           this.ul.classList.add("transacao");
           this.ul.id = transacao;
-          this.ul.appendChild(this.div);
+          this.ul.append(this.divH2, this.div);
 
           const { valor, moeda, data, name } = doc.data();
 
@@ -154,18 +138,44 @@ document.addEventListener("DOMContentLoaded", function () {
           this.liData.textContent = "Data:" + dia + "/" + mes + "/" + ano;
           this.liValor.textContent = "Valor:" + " " + valor + " " + moeda;
 
+          this.btnEditar.innerHTML = '<i class="fa fa-pencil"></i>';
+          this.btnEditar.classList.add("btnEditar");
+
+          this.btnExcluir.innerHTML = '<i class="fa fa-trash"></i>';
+          this.btnExcluir.classList.add("btnExcluir");
+          // Removido o atributo onclick e adicionado um event listener
+          this.btnExcluir.addEventListener('click', () => remover(this.ul.id));
+
+          this.divBtn.classList.add("div-botoes");
+          this.divBtn.append(this.btnEditar, this.btnExcluir);
+
           this.divLi.append(this.liValor, this.liData);
           this.divLi.classList.add('tag-li');
-          this.ul.appendChild(this.divLi);
 
           this.h2.textContent = name;
-          this.div.append(this.h2);
-          this.div.classList.add("tag-h2");
+          this.divH2.append(this.h2, );
+          this.divH2.classList.add("tag-h2");
+
+          this.div.append(this.divLi,this.divBtn)
+          this.div.classList.add("divs-container")
 
           lista.appendChild(this.ul);
         } catch (error) {
           window.confirm("Erro, tente novamente");
           console.error("erro:", error);
+        }
+      }
+    }
+
+    // Função remover recebe o ID como parâmetro
+    function remover(id) {
+      let confirmacao = window.confirm("Tem certeza?");
+      if (confirmacao) {
+        try {
+          let ulList = document.getElementById(id);
+          lista.removeChild(ulList);
+        } catch (error) {
+          console.error(error);
         }
       }
     }
