@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const btnPlus = document.getElementById("btnPlus");
     const transactionForm = document.getElementById("transactionForm");
     const salvarBtn = document.getElementById("salvarBtn");
+    
 
     btnPlus.addEventListener("click", () => {
       transactionForm.classList.toggle("mostrar");
@@ -51,9 +52,11 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
       obterNumero().then((newNumber) => {
         transacao = task + newNumber;
-        coletarDados(uid, transacao);
+        coletarDados(uid, transacao)
         const tag = new Tags(uid, transacao);
         lista.appendChild(tag.getUl());
+        transactionForm.classList.remove("mostrar");
+        lista2.classList.remove("diminuir");
       });
     });
 
@@ -101,6 +104,8 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
+    
+
     class Tags {
       constructor(uid, transacao) {
         this.ul = document.createElement("ul");
@@ -140,6 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           this.btnEditar.innerHTML = '<i class="fa fa-pencil"></i>';
           this.btnEditar.classList.add("btnEditar");
+          this.btnEditar.addEventListener('click', () => editar(this.ul.id, transactionForm, lista2))
 
           this.btnExcluir.innerHTML = '<i class="fa fa-trash"></i>';
           this.btnExcluir.classList.add("btnExcluir");
@@ -153,10 +159,10 @@ document.addEventListener("DOMContentLoaded", function () {
           this.divLi.classList.add('tag-li');
 
           this.h2.textContent = name;
-          this.divH2.append(this.h2, );
+          this.divH2.append(this.h2);
           this.divH2.classList.add("tag-h2");
 
-          this.div.append(this.divLi,this.divBtn)
+          this.div.append(this.divLi, this.divBtn)
           this.div.classList.add("divs-container")
 
           lista.appendChild(this.ul);
@@ -174,10 +180,54 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
           let ulList = document.getElementById(id);
           lista.removeChild(ulList);
+          db.collection("users").doc("usersID").collection(uid).doc(id).delete()
         } catch (error) {
           console.error(error);
         }
       }
     }
+
+    function editar(id, transactionForm, lista2) {
+      let divFormEditar = document.getElementById("btn-plus2");
+      let btnSalvarEdicao = document.getElementById("salvarBtn-editar");
+  
+      divFormEditar.classList.toggle("mostrar");
+  
+      if (transactionForm.classList.contains("mostrar")) {
+          transactionForm.classList.remove("mostrar");
+      }
+  
+      if (transactionForm.classList.contains("mostrar") || divFormEditar.classList.contains("mostrar")) {
+          lista2.classList.add("diminuir");
+      } else {
+          lista2.classList.remove("diminuir");
+      }
+  
+      btnSalvarEdicao.addEventListener('click', (e) => {
+          e.preventDefault();
+  
+          // Move a obtenção dos valores dos campos para dentro do evento de clique do botão
+          let novoNome = document.getElementById("novoNome").value;
+          let novoValor = document.getElementById("NovoValor").value;
+          let novaMoeda = document.getElementById("novaMoeda").value;
+          let novaData = document.getElementById("novaData").value;
+  
+          divFormEditar.classList.remove("mostrar");
+          lista2.classList.remove("diminuir");
+  
+          db.collection("users").doc("usersID").collection(uid).doc(id).update({
+              name: novoNome,
+              valor: novoValor,
+              moeda: novaMoeda,
+              data: novaData
+          });
+          
+          setTimeout(()=>{
+            location.reload(true)
+          }, 500)
+      });
+
+  }
+  
   });
 });

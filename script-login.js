@@ -75,8 +75,6 @@ document.addEventListener("DOMContentLoaded", function() {
             
             let number = 1;
 
-    
-            // Criar o documento "number-transacao" com o ID específico
             db.collection("users").doc("usersID").collection(uid).doc("number-transacao").set({
                 num : number
             })

@@ -1,80 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="estilo-dashboard.css">
-    <title>Document</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="estilo-dashboard.css">
+        <title>Document</title>
+    </head>
+    <body>
+            <header>
+                <h1>Finance Manager</h1>
+            </header>
 
-        <header>
-            <h1>Finance Manager</h1>
-        </header>
+            <main>
+                <div class="btn-plus" >
+                    <button class="plus" id="btnPlus">
+                        <img src="./plus-icon.png" alt="" width="37" height="37">
+                    </button>
 
-        <main>
-            
-            <div class="btn-plus" >
-                <button class="plus" id="btnPlus">
-                    <img src="./plus-icon.png" alt="" width="37" height="37">
-                </button>
+                    <section id="transactionForm" >
+                        <h2>Adicionar Transação</h2>
+                        <form id="addTransactionForm">
+                            <aside class = "barra-lateral">
+                                <div class="addTransacao">
 
-                <section id="transactionForm" class="escondido">
-                    <h2>Adicionar Transação</h2>
-                    <form id="addTransactionForm">
-                        <aside class = "barra-lateral">
-                            <div class="addTransacao">
+                                    <label for="nome">Nome:</label>
+                                    <input type="text" id="nome">
 
-                                <label for="nome">Nome:</label>
-                                <input type="text" id="nome">
+                                    <hr>
+                                    <label for="valor">Valor:</label>
+                                    <input type="number" id="valor" >
 
-                                <hr>
-                                <label for="valor">Valor:</label>
-                                <input type="number" id="valor" >
+                                    <hr>
+                                    <label for="moeda">Moeda:</label>
+                                    <select id="moeda" name="moeda">
+                                        <option value="reais">Real</option>
+                                        <option value="dólares">Dólar Americano</option>
+                                        <option value="euros">Euro</option>
+                                        <option value="pesos">Peso Argentino</option>
+                                        <option value="libras">Libra Esterlina</option>
+                                        <option value="iene">Iene Japonês</option>
+                                        <option value="francos">Franco Suíço</option>
+                                        <option value="coroas">Coroa Dinamarquesa</option>
+                                        <option value="rupias">Rupia Indiana</option>
+                                        <option value="won">Won Sul-Coreano</option>
+                                        <option value="dinares">Dinar Kuwaitiano</option>
+                                        <option value="baht">Baht Tailandês</option>
+                                        <option value="Coroas Norueguesas">Coroa Norueguesa</option>
+                                        <option value="PesosFilipinos">Peso Filipino</option>
+                                    </select>
 
-                                <hr>
-                                <label for="moeda">Moeda:</label>
-                                <select id="moeda" name="moeda">
-                                    <option value="reais">Real</option>
-                                    <option value="dólares">Dólar Americano</option>
-                                    <option value="euros">Euro</option>
-                                    <option value="pesos">Peso Argentino</option>
-                                    <option value="libras">Libra Esterlina</option>
-                                    <option value="iene">Iene Japonês</option>
-                                    <option value="francos">Franco Suíço</option>
-                                    <option value="coroas">Coroa Dinamarquesa</option>
-                                    <option value="rupias">Rupia Indiana</option>
-                                    <option value="won">Won Sul-Coreano</option>
-                                    <option value="dinares">Dinar Kuwaitiano</option>
-                                    <option value="baht">Baht Tailandês</option>
-                                    <option value="Coroas Norueguesas">Coroa Norueguesa</option>
-                                    <option value="PesosFilipinos">Peso Filipino</option>
-                                </select>
+                                    <hr>
+                                    <label for="data">Data:</label>
+                                    <input type="date" id="data">
 
-                                <hr>
-                                <label for="data">Data:</label>
-                                <input type="date" id="data">
+                                    <button id="salvarBtn">Salvar</button>                                
+                                </div>
+                            </aside>
+                        </form>
+                    </section>
+                </div>
 
-                                <button id="salvarBtn">Salvar</button>                                
-                            </div>
-                        </aside>
-                    </form>
-                </section>
-            </div>
+                <div id="transactionList" class ="aumentar" >
+                    <h2>Transações Recentes</h2>
+                    <ul id="transactions">
+                        
+                    </ul>
+                </div>
+                
+                <div id="btn-plus2">
+                    <section id ="editar-form" >
+                        <h2>Editar transação</h2>
+                        <form id="form-editar">
+                            
+                            <aside class = "barra-lateral-editar" >
+                                <div class="editar-transacao">
 
-            <div id="transactionList" class ="aumentar" >
-                <h2>Transações Recentes</h2>
-                <ul id="transactions">
-                    
-                </ul>
-            </div>
-            
-        </main>
-        <script src="script-dashboard.js"></script>
+                                    <label for="novoNome">Nome:</label>
+                                    <input type="text" id="novoNome">
 
-</body>
+                                    <hr>
+                                    <label for="NovoValor">Valor:</label>
+                                    <input type="number" id="NovoValor" >
+
+                                    <hr>
+                                    <label for="novaMoeda">Moeda:</label>
+                                    <select id="novaMoeda" name="NovaMoeda">
+                                        <option value="reais">Real</option>
+                                        <option value="dólares">Dólar Americano</option>
+                                        <option value="euros">Euro</option>
+                                        <option value="pesos">Peso Argentino</option>
+                                        <option value="libras">Libra Esterlina</option>
+                                        <option value="iene">Iene Japonês</option>
+                                        <option value="francos">Franco Suíço</option>
+                                        <option value="coroas">Coroa Dinamarquesa</option>
+                                        <option value="rupias">Rupia Indiana</option>
+                                        <option value="won">Won Sul-Coreano</option>
+                                        <option value="dinares">Dinar Kuwaitiano</option>
+                                        <option value="baht">Baht Tailandês</option>
+                                        <option value="Coroas Norueguesas">Coroa Norueguesa</option>
+                                        <option value="PesosFilipinos">Peso Filipino</option>
+                                    </select>
+
+                                    <hr>
+                                    <label for="novaData">Data:</label>
+                                    <input type="date" id="novaData">
+
+                                    <button id="salvarBtn-editar">Salvar</button>                                
+                                </div>
+                            </aside>
+                        </form>
+                    </section>
+                </div>
+            </main>
+            <script src="script-dashboard.js"></script>
+    </body>
 </html>
